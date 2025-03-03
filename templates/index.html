@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Detailers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="/logo.JPEG">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.9);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        ul li {
+            margin: 0 20px;
+        }
+
+        ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        main {
+            padding-top: 80px;
+        }
+
+        #services {
+            padding: 100px 20px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .service-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .service-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        .service-box select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .service-box button {
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            background-color: #e31837;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #about, #contact {
+            text-align: center;
+        }
+        .service-box button {
+            display: none;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#services">SERVICES</a></li>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+            <a href="https://www.instagram.com/apexdetailers_dmv/" target="_blank"><i class="fab fa-instagram"></i></a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" style="height: 100vh; background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center;">
+            <div style="color: #fff;">
+                <h1>Welcome to Apex Detailing</h1>
+                <p>Your vehicle deserves the best care!</p>
+                <a href="#services" style="background-color: #e31837; color: #fff; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: 600;">Our Services</a>
+            </div>
+        </section>
+
+        <section id="services">
+            <h2>Our Services</h2>
+            <div class="service-container">
+                <div class="service-box">
+                    <i class="fas fa-car" style="font-size: 48px; color: #e31837;"></i>
+                    <h3>Ceramic Exterior Detailing</h3>
+                    <p>Complete exterior cleaning and protection.</p>
+                    <select id="exterior-detailing" onchange="redirectToPage(this)">
+                        <option value="">Select an option</option>
+                        <option value="ceramic-coating.html">Ceramic Coating</option>
+                    </select>
+                    <button onclick="redirectToPage(document.getElementById('exterior-detailing'))">Book Now</button>
+                </div>
+                
+                <div class="service-box">
+                    <i class="fas fa-couch" style="font-size: 48px; color: #e31837;"></i>
+                    <h3>Interior Detailing</h3>
+                    <p>Deep cleaning and conditioning of all interior surfaces.</p>
+                    <select id="interior-detailing" onchange="redirectToPage(this)">
+                        <option value="">Select an option</option>
+                        <option value="leather-conditioning.html">Leather Conditioning</option>
+                        <option value="deep-carpet-cleaning.html">Deep Carpet Cleaning</option>
+                    </select>
+                    <button onclick="redirectToPage(document.getElementById('interior-detailing'))">Book Now</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>About Us</h2>
+            <p>We provide premium car detailing services with attention to detail and quality care.</p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <div class="service-container">
+                <div class="service-box">
+                    <i class="fas fa-envelope" style="font-size: 36px; color: #e31837;"></i>
+                    <p><a href="mailto:apexdetailingdmv@gmail.com">apexdetailingdmv@gmail.com</a></p>
+                </div>
+                <div class="service-box">
+                    <i class="fas fa-phone" style="font-size: 36px; color: #e31837;"></i>
+                    <p><a href="tel:5714201319">+1 571-420-1319</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Apex Detailing</p>
+    </footer>
+
+    <script>
+        function redirectToPage(selectElement) {
+            let selectedValue = selectElement.value;
+            if (selectedValue) {
+                window.location.href = selectedValue;
+            }
+        }
+    </script>
+</body>
+</html>
