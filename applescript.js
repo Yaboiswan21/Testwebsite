@@ -1,15 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log('DOM fully loaded and parsed');
-    if (window.ApplePaySession) {
+    if (window.ApplePaySession && ApplePaySession.canMakePayments()) {
         console.log('Apple Pay Session available');
-        if (ApplePaySession.canMakePayments()) {
-            console.log('Can make payments with Apple Pay');
-            document.getElementById("apple-pay-button").style.display = "flex";
-        } else {
-            console.log('Cannot make payments with Apple Pay');
-        }
+        document.getElementById("apple-pay-button").style.display = "flex";
     } else {
-        console.log('Apple Pay Session not available');
+        console.log('Cannot make payments with Apple Pay');
     }
 });
 
@@ -26,11 +21,11 @@ document.getElementById("apple-pay-button").addEventListener("click", function (
     };
 
     const session = new ApplePaySession(3, paymentRequest);
-    
+
     session.onvalidatemerchant = function (event) {
-        // Call your validation server to validate the merchant
+        console.log('Validating merchant');
         const validationURL = event.validationURL;
-        // Fetch merchant session from your server
+        // Replace with your server endpoint for validation
         fetch('/validate-merchant', {
             method: 'POST',
             body: JSON.stringify({ validationURL })
@@ -38,13 +33,17 @@ document.getElementById("apple-pay-button").addEventListener("click", function (
         .then(response => response.json())
         .then(data => {
             session.completeMerchantValidation(data);
+        })
+        .catch(error => {
+            console.error('Merchant validation failed', error);
+            session.abort();
         });
     };
 
     session.onpaymentauthorized = function (event) {
-        // Process the payment
+        console.log('Payment authorized');
         const payment = event.payment;
-        // Send payment to your server
+        // Replace with your server endpoint for processing payment
         fetch('/process-payment', {
             method: 'POST',
             body: JSON.stringify(payment)
@@ -52,7 +51,15 @@ document.getElementById("apple-pay-button").addEventListener("click", function (
         .then(response => response.json())
         .then(data => {
             session.completePayment(data.success ? ApplePaySession.STATUS_SUCCESS : ApplePaySession.STATUS_FAILURE);
+        })
+        .catch(error => {
+            console.error('Payment processing failed', error);
+            session.completePayment(ApplePaySession.STATUS_FAILURE);
         });
+    };
+
+    session.oncancel = function (event) {
+        console.log('Payment cancelled', event);
     };
 
     session.begin();
