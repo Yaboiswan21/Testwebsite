@@ -25,12 +25,19 @@ document.getElementById("apple-pay-button").addEventListener("click", function (
     session.onvalidatemerchant = function (event) {
         console.log('Validating merchant');
         const validationURL = event.validationURL;
-        // Replace with your server endpoint for validation
         fetch('/validate-merchant', {
             method: 'POST',
-            body: JSON.stringify({ validationURL })
+            body: JSON.stringify({ validationURL }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             session.completeMerchantValidation(data);
         })
@@ -43,12 +50,19 @@ document.getElementById("apple-pay-button").addEventListener("click", function (
     session.onpaymentauthorized = function (event) {
         console.log('Payment authorized');
         const payment = event.payment;
-        // Replace with your server endpoint for processing payment
         fetch('/process-payment', {
             method: 'POST',
-            body: JSON.stringify(payment)
+            body: JSON.stringify(payment),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             session.completePayment(data.success ? ApplePaySession.STATUS_SUCCESS : ApplePaySession.STATUS_FAILURE);
         })
@@ -62,9 +76,8 @@ document.getElementById("apple-pay-button").addEventListener("click", function (
         console.log('Payment cancelled', event);
     };
 
-    // Ensure session remains open until manually closed
-    session.onpaymentmethodselected = function(event) {
-        console.log('Payment method selected');
+    session.onpaymentmethodselected = function (event) {
+        console.log('Payment method selected', event.paymentMethod);
     };
     
     session.begin();
