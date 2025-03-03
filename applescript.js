@@ -62,5 +62,10 @@ document.getElementById("apple-pay-button").addEventListener("click", function (
         console.log('Payment cancelled', event);
     };
 
+    // Ensure session remains open until manually closed
+    session.onpaymentmethodselected = function(event) {
+        console.log('Payment method selected');
+    };
+    
     session.begin();
 });
