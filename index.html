@@ -59,13 +59,23 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Apple_Pay_logo.svg" alt="Apple Pay">
             Pay with Apple Pay
         </button>
+        <apple-pay-button buttonstyle="black" type="buy"></apple-pay-button>
     </div>
 
     <script src="https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            if (window.ApplePaySession && ApplePaySession.canMakePayments()) {
-                document.getElementById("apple-pay-button").style.display = "flex";
+            console.log('DOM fully loaded and parsed');
+            if (window.ApplePaySession) {
+                console.log('Apple Pay Session available');
+                if (ApplePaySession.canMakePayments()) {
+                    console.log('Can make payments with Apple Pay');
+                    document.getElementById("apple-pay-button").style.display = "flex";
+                } else {
+                    console.log('Cannot make payments with Apple Pay');
+                }
+            } else {
+                console.log('Apple Pay Session not available');
             }
         });
     </script>
